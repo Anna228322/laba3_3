@@ -15,9 +15,9 @@ public class RegistrationServlet extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        IAccountService accountService = MainServlet.SERVICE_LOCATOR.getAccountService();
+        AccountService accountService = MainServlet.SERVICE_LOCATOR.getAccountService();
 
-        UserProfile user = extractUserProfile(request);
+        User user = extractUserProfile(request);
         RegistrationResult result = accountService.registerUser(user);
         if (result == RegistrationResult.OK) {
             accountService.logInUser(user, request.getSession());
@@ -45,11 +45,11 @@ public class RegistrationServlet extends HttpServlet {
         request.getRequestDispatcher("register.jsp").forward(request, response);
     }
 
-    private UserProfile extractUserProfile(HttpServletRequest request) {
+    private User extractUserProfile(HttpServletRequest request) {
         String login = request.getParameter("login");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        UserProfile result = new UserProfile(login, password, email);
+        User result = new User(login, password, email);
         result.setId(login);
 
         return result;

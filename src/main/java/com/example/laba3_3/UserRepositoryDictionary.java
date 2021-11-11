@@ -5,12 +5,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class UserRepositoryRuntimeImpl implements IUserRepository {
-    private final static HashMap<String, UserProfile> userStorage = new HashMap<>();
+public class UserRepositoryDictionary implements IUserRepository {
+    private final static HashMap<String, User> userStorage = new HashMap<>();
     private final static HashMap<String, HttpSession> sessionsStorage = new HashMap<>();
 
     @Override
-    public void addUser(UserProfile user) {
+    public void addUser(User user) {
         userStorage.put(user.getId(), user);
     }
 
@@ -20,7 +20,7 @@ public class UserRepositoryRuntimeImpl implements IUserRepository {
     }
 
     @Override
-    public UserProfile getUserBySessionId(String sessionId) {
+    public User getUserBySessionId(String sessionId) {
         if (!isSessionRegistered(sessionId))
             return null;
         String userId = sessionsStorage.entrySet().stream()
@@ -35,16 +35,16 @@ public class UserRepositoryRuntimeImpl implements IUserRepository {
     }
 
     @Override
-    public UserProfile getUserByLogin(String login) {
-        Optional<UserProfile> userProfile = userStorage.values().stream()
+    public User getUserByLogin(String login) {
+        Optional<User> userProfile = userStorage.values().stream()
                 .filter(user -> user.getLogin().equals(login))
                 .findFirst();
         return userProfile.orElse(null);
     }
 
     @Override
-    public UserProfile getUserByEmail(String email) {
-        Optional<UserProfile> userProfile = userStorage.values().stream()
+    public User getUserByEmail(String email) {
+        Optional<User> userProfile = userStorage.values().stream()
                 .filter(user -> user.getEmail().equals(email))
                 .findFirst();
         return userProfile.orElse(null);

@@ -3,15 +3,15 @@ package com.example.laba3_3;
 import javax.servlet.http.HttpSession;
 
 public interface IUserRepository {
-    void addUser(UserProfile user);
+    void addUser(User user);
 
     void addSession(String userId, HttpSession session);
 
-    UserProfile getUserBySessionId(String userId);
+    User getUserBySessionId(String userId);
 
-    UserProfile getUserByLogin(String login);
+    User getUserByLogin(String login);
 
-    UserProfile getUserByEmail(String email);
+    User getUserByEmail(String email);
 
     boolean isSessionRegistered(String userId);
 

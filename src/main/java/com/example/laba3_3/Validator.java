@@ -1,13 +1,11 @@
 package com.example.laba3_3;
 
-public class ValidatorImpl implements IValidator {
-    @Override
+public class Validator {
     public boolean validatePath(String path) {
         return path != null && !path.equals("");
     }
 
-    @Override
-    public RegistrationResult validateNewUser(UserProfile user) {
+    public RegistrationResult validateNewUser(User user) {
         boolean fieldsAreFilled = user.getLogin() != null &&
                 user.getPassword() != null &&
                 user.getEmail() != null;

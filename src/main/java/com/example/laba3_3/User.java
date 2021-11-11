@@ -1,18 +1,18 @@
 package com.example.laba3_3;
 
-public class UserProfile {
+public class User {
     private final String login;
     private final String password;
     private String id;
     private final String email;
 
-    public UserProfile(String login, String password, String email) {
+    public User(String login, String password, String email) {
         this.login = login;
         this.password = password;
         this.email = email;
     }
 
-    public UserProfile(String userId, String login, String password, String email) {
+    public User(String userId, String login, String password, String email) {
         this(login, password, email);
         setId(userId);
     }

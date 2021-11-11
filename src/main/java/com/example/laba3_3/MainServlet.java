@@ -6,12 +6,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/")
 public class MainServlet extends HttpServlet {
-    public final static IServiceLocator SERVICE_LOCATOR = new ServiceLocatorImpl();
+    public final static ServiceLocator SERVICE_LOCATOR = new ServiceLocator();
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -64,7 +65,7 @@ public class MainServlet extends HttpServlet {
             pathToken = "Path was not correct";
             directories = new ArrayList<>();
         }
-        String dateToken = SERVICE_LOCATOR.getDateProvider().getCurrentDate().toString();
+        String dateToken = new Timestamp(System.currentTimeMillis()).toString();
 
         request.setAttribute("name", "app name");
         request.setAttribute("date_now", dateToken);

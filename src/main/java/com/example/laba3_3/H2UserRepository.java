@@ -12,14 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class H2UserRepositoryImpl implements IUserRepository {
+public class H2UserRepository implements IUserRepository {
     private static Connection c;
     private static final String DB_URL =
             "jdbc:h2:./db";
     private static final String H2_JAR_PATH =
             "file://./src/main/webapp/WEB-INF/lib/h2-1.4.200.jar";
 
-    public H2UserRepositoryImpl() {
+    public H2UserRepository() {
         try {
             init();
         } catch (Exception e) {
@@ -29,7 +29,7 @@ public class H2UserRepositoryImpl implements IUserRepository {
     }
 
     @Override
-    public void addUser(UserProfile user) {
+    public void addUser(User user) {
         execute(String.format(
                 "insert into user values('%s', '%s', '%s', '%s')",
                 user.getId(),
@@ -49,7 +49,7 @@ public class H2UserRepositoryImpl implements IUserRepository {
     }
 
     @Override
-    public UserProfile getUserBySessionId(String sessionId) {
+    public User getUserBySessionId(String sessionId) {
         List<Object[]> sessionRes = executeForResult(
                 String.format("select * from session where sessionId = '%s'", sessionId)
         );
@@ -66,7 +66,7 @@ public class H2UserRepositoryImpl implements IUserRepository {
     }
 
     @Override
-    public UserProfile getUserByLogin(String login) {
+    public User getUserByLogin(String login) {
         List<Object[]> list = executeForResult(
                 String.format("select * from user where login = '%s'", login)
         );
@@ -74,7 +74,7 @@ public class H2UserRepositoryImpl implements IUserRepository {
     }
 
     @Override
-    public UserProfile getUserByEmail(String email) {
+    public User getUserByEmail(String email) {
         List<Object[]> list = executeForResult(
                 String.format("select * from user where email = '%s'", email)
         );
@@ -194,8 +194,8 @@ public class H2UserRepositoryImpl implements IUserRepository {
         return tuple;
     }
 
-    private UserProfile mapToUser(Object[] tuple) {
-        return new UserProfile(
+    private User mapToUser(Object[] tuple) {
+        return new User(
                 (String) tuple[0],
                 (String) tuple[1],
                 (String) tuple[2],

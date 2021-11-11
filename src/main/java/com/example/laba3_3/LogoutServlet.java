@@ -9,7 +9,7 @@ import java.io.IOException;
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        IAccountService accountService = MainServlet.SERVICE_LOCATOR.getAccountService();
+        AccountService accountService = MainServlet.SERVICE_LOCATOR.getAccountService();
 
         accountService.logOut(request.getSession().getId());
 

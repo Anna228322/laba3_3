@@ -2,19 +2,18 @@ package com.example.laba3_3;
 
 import javax.servlet.http.HttpSession;
 
-public class AccountServiceImpl implements IAccountService {
+public class AccountService {
     private final IUserRepository userRepository;
 
-    public AccountServiceImpl(IUserRepository userRepository) {
+    public AccountService(IUserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    @Override
-    public RegistrationResult registerUser(UserProfile user) {
-        IValidator validator = MainServlet.SERVICE_LOCATOR.getValidator();
+    public RegistrationResult registerUser(User user) {
+        Validator validator = MainServlet.SERVICE_LOCATOR.getValidator();
 
-        UserProfile profileByLogin = userRepository.getUserByLogin(user.getLogin());
-        UserProfile profileByEmail = userRepository.getUserByEmail(user.getEmail());
+        User profileByLogin = userRepository.getUserByLogin(user.getLogin());
+        User profileByEmail = userRepository.getUserByEmail(user.getEmail());
         if (profileByEmail != null)
             return RegistrationResult.EMAIL_IS_OCCUPIED;
         if (profileByLogin != null)
@@ -27,14 +26,12 @@ public class AccountServiceImpl implements IAccountService {
         return RegistrationResult.OK;
     }
 
-    @Override
     public boolean isUserAuthorized(String sessionId) {
         return userRepository.isSessionRegistered(sessionId);
     }
 
-    @Override
-    public LoginResult logInUser(UserProfile inputProfile, HttpSession session) {
-        UserProfile foundProfile = inputProfile.getLogin() != null ?
+    public LoginResult logInUser(User inputProfile, HttpSession session) {
+        User foundProfile = inputProfile.getLogin() != null ?
                 userRepository.getUserByLogin(inputProfile.getLogin()) :
                 userRepository.getUserByEmail(inputProfile.getEmail());
         if (foundProfile == null)
@@ -48,15 +45,13 @@ public class AccountServiceImpl implements IAccountService {
         return LoginResult.OK;
     }
 
-    @Override
     public boolean logOut(String sessionId) {
-        UserProfile user = getUserBySessionId(sessionId);
+        User user = getUserBySessionId(sessionId);
         userRepository.cleanUserSession(user.getId());
         return true;
     }
 
-    @Override
-    public UserProfile getUserBySessionId(String sessionId) {
+    public User getUserBySessionId(String sessionId) {
         return userRepository.getUserBySessionId(sessionId);
     }
 }

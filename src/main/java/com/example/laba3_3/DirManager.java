@@ -5,8 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class DirManagerImpl implements IDirManager {
-    @Override
+public class DirManager {
     public List<FileModel> getUserFileSystem(String path, String login) {
         try {
             String root = "C:\\Users\\Аня\\Desktop\\java_lab_3\\rootFileSystem\\" + login;
