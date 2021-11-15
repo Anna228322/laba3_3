@@ -36,18 +36,18 @@ public class UserRepositoryDictionary implements IUserRepository {
 
     @Override
     public User getUserByLogin(String login) {
-        Optional<User> userProfile = userStorage.values().stream()
+        Optional<User> User = userStorage.values().stream()
                 .filter(user -> user.getLogin().equals(login))
                 .findFirst();
-        return userProfile.orElse(null);
+        return User.orElse(null);
     }
 
     @Override
     public User getUserByEmail(String email) {
-        Optional<User> userProfile = userStorage.values().stream()
+        Optional<User> User = userStorage.values().stream()
                 .filter(user -> user.getEmail().equals(email))
                 .findFirst();
-        return userProfile.orElse(null);
+        return User.orElse(null);
     }
 
     @Override

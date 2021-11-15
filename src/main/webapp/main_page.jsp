@@ -1,6 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Arrays" %>
-<%@ page import="FileModel" %>
+<%@ page import="com.example.laba3_3.FileModel" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>

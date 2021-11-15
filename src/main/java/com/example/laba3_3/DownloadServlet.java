@@ -11,11 +11,16 @@ import java.io.OutputStream;
 
 @WebServlet("/download/")
 public class DownloadServlet extends HttpServlet {
+    private AccountService service = MainServlet.SERVICE_LOCATOR.getAccountService();
+
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String path = request.getParameter("path");
 
-        String root = "D:\\git\\OOA\\java_lab_3";
-        path = root + path.replace("/", "\\");
+        String login = service.getUserBySessionId(request.getSession().getId()).getLogin();
+        path = (Utils.PROJ_DIR + Utils.SHARED_DIR_NAME + "/" + login + path)
+                .replace("\\", "/")
+                .replaceAll("/+", "/")
+                .replace("/", "\\");
 
         File file = new File(path);
         response.setContentType("application/octet-stream");

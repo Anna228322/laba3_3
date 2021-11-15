@@ -17,7 +17,7 @@ public class LoginServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         AccountService accountService = MainServlet.SERVICE_LOCATOR.getAccountService();
 
-        User user = extractUserProfile(request);
+        User user = extractUser(request);
         if (accountService.isUserAuthorized(request.getSession().getId()))
             accountService.logOut(request.getSession().getId());
         LoginResult result = accountService.logInUser(user, request.getSession());
@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
-    private User extractUserProfile(HttpServletRequest request) {
+    private User extractUser(HttpServletRequest request) {
         String login = null;
         String email = null;
         String password = request.getParameter("password");

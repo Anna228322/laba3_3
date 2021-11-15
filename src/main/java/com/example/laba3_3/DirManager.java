@@ -6,11 +6,13 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class DirManager {
+
     public List<FileModel> getUserFileSystem(String path, String login) {
         try {
-            String root = "C:\\Users\\Аня\\Desktop\\java_lab_3\\rootFileSystem\\" + login;
+            String root = Utils.PROJ_DIR + Utils.SHARED_DIR_NAME + "\\" + login;
             new File(root).mkdir();
             new File(root + "/demodir").mkdir();
+            new File(root + "/demo.txt").createNewFile();
 
             path = root + path.replace("/", "\\");
             return Stream.of(new File(path).listFiles())

@@ -9,8 +9,9 @@ public class ServiceLocator {
     public ServiceLocator() {
         pathReader = new DirManager();
         validator = new Validator();
+//        repository = new UserRepositoryDictionary();
 //        repository = new H2UserRepository();
-        repository = new UserRepositoryDictionary();
+        repository = new HibernateUserRepository();
         accountService = new AccountService(repository);
     }
 

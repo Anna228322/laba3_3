@@ -13,7 +13,7 @@ public class LogoutServlet extends HttpServlet {
 
         accountService.logOut(request.getSession().getId());
 
-        String path = "http://localhost:8080/java_lab_3_war_exploded/login";
+        String path = Utils.ROOT_URL + "login";
         response.sendRedirect(path);
     }
 }
